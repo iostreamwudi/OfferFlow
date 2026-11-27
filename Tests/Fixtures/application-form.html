@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>Career AI 本机网申测试</title>
+<style>body{font:14px system-ui;margin:28px auto;max-width:900px;background:#f5f7f8;color:#22312d}fieldset{border:1px solid #ddd;background:white;border-radius:10px;padding:20px;margin:18px 0}label{display:inline-block;min-width:100px;margin:10px 0}input,select,textarea{font:inherit;padding:8px;width:240px;margin:5px;border:1px solid #ccc;border-radius:5px}textarea{width:500px;height:65px}input[type=radio],input[type=checkbox]{width:auto}legend{font-weight:600}button{padding:10px 14px;margin:8px}[role=combobox]{display:inline-block;background:white;padding:10px;border:1px solid #ccc;width:220px}[role=option]{padding:10px;cursor:pointer;background:#eef7f4}</style>
+<h1>本机网申表单测试</h1><p>所有字段仅停留在本机。本页无网络请求，测试提交只增加页面内计数。</p><form id="application">
+<fieldset><legend>基本信息</legend>
+<div><label for="candidateName">姓名</label><input id="candidateName" name="candidateName" required></div>
+<div><label for="phone">手机号码</label><input id="phone" type="tel"></div>
+<div><label for="email">电子邮箱</label><input id="email" type="email"></div>
+<div><label for="birthday">出生日期</label><input id="birthday" type="date"></div>
+<div><label for="kept">英文名</label><input id="kept" value="USER EXISTING VALUE"></div>
+<div><label for="nationality">国籍</label><select id="nationality"><option value="">请选择</option><option value="CN">中国</option><option value="US">美国</option></select></div>
+<div role="radiogroup" aria-label="性别"><label><input type="radio" name="sex" value="M">男</label><label><input type="radio" name="sex" value="F">女</label></div>
+<div><label for="photo">照片附件</label><input id="photo" type="file"></div>
+<label><input id="agreement" type="checkbox">我已阅读并同意隐私协议</label>
+</fieldset>
+<fieldset><legend>教育经历 1</legend><div><label for="school1">学校</label><input id="school1"></div><div><label for="major1">专业</label><input id="major1"></div><div><label for="start1">入学时间</label><input id="start1" type="month"></div></fieldset>
+<fieldset><legend>教育经历 2</legend><div><label for="school2">学校名称</label><input id="school2"></div><div><label for="major2">专业</label><input id="major2"></div><div><label for="start2">开始时间</label><input id="start2" type="month"></div></fieldset>
+<div id="workGroup"><fieldset><legend>工作经历</legend><div><label for="company1">公司名称</label><input id="company1"></div><div><label for="workdesc1">工作职责</label><textarea id="workdesc1"></textarea></div></fieldset></div>
+<button id="addWork" type="button">添加工作经历</button>
+<fieldset><legend>求职意向</legend><div><label id="cityLabel">期望城市</label><div id="city" role="combobox" aria-labelledby="cityLabel" tabindex="0">请选择</div><div id="cities" role="listbox" hidden><div role="option">上海</div><div role="option">北京</div></div></div></fieldset>
+<fieldset><legend>自我评价</legend><label for="summary">自我评价</label><textarea id="summary"></textarea></fieldset>
+<fieldset><legend>家庭情况</legend><div><label for="familyName">姓名</label><input id="familyName"></div></fieldset>
+<button type="submit" id="submit">提交申请（仅计数）</button><output id="submitCount">提交次数：0</output>
+</form><script>
+window.fixtureSubmitCount=0;document.querySelector('form').addEventListener('submit',e=>{e.preventDefault();fixtureSubmitCount++;document.querySelector('#submitCount').value='提交次数：'+fixtureSubmitCount});
+let workCount=1;document.querySelector('#addWork').addEventListener('click',()=>{workCount++;const f=document.createElement('fieldset');f.innerHTML='<legend>工作经历</legend><div><label for="company'+workCount+'">公司名称</label><input id="company'+workCount+'"></div><div><label for="workdesc'+workCount+'">工作职责</label><textarea id="workdesc'+workCount+'"></textarea></div>';document.querySelector('#workGroup').append(f)});
+document.querySelector('#city').addEventListener('click',()=>document.querySelector('#cities').hidden=false);document.querySelectorAll('[role=option]').forEach(o=>o.addEventListener('click',()=>{document.querySelector('#city').textContent=o.textContent;document.querySelector('#cities').hidden=true}));
+</script></html>

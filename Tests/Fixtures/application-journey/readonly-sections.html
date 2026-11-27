@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><style>body{margin:0;font:16px sans-serif}.layout{display:flex}.content{width:65%;padding:20px}.sidebar{width:30%;padding:10px}.sidebar h5,.edit,.save{cursor:pointer}.sidebar h5{margin:15px 0}.form-item{margin:15px 0}.edit,.save{color:blue}[hidden]{display:none!important}</style>
+<div class="layout"><div class="content" id="content"></div><div class="sidebar"><div onclick="show('basic')"><h5>个人信息</h5><span>未完成</span></div><div onclick="show('education')"><h5>教育经历</h5><span>未完成</span></div><div onclick="show('work')"><h5>实习/工作经历</h5><span>未完成</span></div><div onclick="show('computer')"><h5>专业技能</h5><span>未完成</span></div><button onclick="submissions++">立即投递</button></div></div>
+<script>
+window.submissions=0;window.edits={};window.saved={};window.current='basic';window.values={};
+const titles={basic:'个人信息',education:'教育经历',work:'实习/工作经历',computer:'专业技能'};
+const fields={basic:[['姓名','name','已有人名'],['电子邮箱','email','']],education:[['学校名称','school','']],work:[['公司名称','company',''],['手机号码','unknown','']],computer:[['技能名称','skill','']]};
+function show(section){current=section;content.innerHTML='<div class="resume-card"><div class="title"><h3>'+titles[section]+' <small>必填</small></h3></div><div class="summary">已保存资料</div><span class="edit" onclick="edit()"><i>✎</i> 编辑</span></div>'}
+function edit(){edits[current]=(edits[current]||0)+1;content.innerHTML='<div class="resume-card"><div class="title"><h3>'+titles[current]+'</h3></div>'+fields[current].map(([label,id,value])=>'<div class="form-item"><label for="'+id+'">'+label+'</label><input id="'+id+'" '+(id==='unknown'?'required':'')+' value="'+value+'"></div>').join('')+'<div id="validation" role="alert"></div><span class="save" onclick="save()">保存</span></div>'}
+function save(){values[current]=Object.fromEntries([...content.querySelectorAll('input')].map(n=>[n.id,n.value]));if(current==='work'&&!unknown.value){validation.textContent='请补充手机号码';return;}saved[current]=(saved[current]||0)+1;show(current)}
+show('basic');
+</script>

@@ -1,0 +1,12 @@
+<!doctype html><meta charset="utf-8"><style>body{padding:25px;font:16px sans-serif}label{display:block;margin:12px}button{margin:10px;padding:10px}[hidden]{display:none!important}</style>
+<section data-section="basic"><h2>个人档案</h2><button type="button" id="semanticStart" onclick="this.remove();document.getElementById('editor').hidden=false">补全个人档案</button>
+<form id="editor" hidden onsubmit="event.preventDefault();semanticSubmits++">
+<label>姓名<input id="semanticName"></label><label>手机号码<input id="semanticPhone" required></label>
+<div id="savedFields" hidden><label>电子邮箱<input id="semanticEmail"></label></div>
+<button type="button" onclick="document.getElementById('savedFields').hidden=false">暂存这部分</button>
+<button type="button" onclick="if(!document.getElementById('semanticPhone').value){document.getElementById('validation').textContent='手机号未填写'}">前往另一组材料</button><div role="alert" id="validation"></div>
+<button type="button" role="tab" aria-selected="false" onclick="this.setAttribute('aria-selected','true');document.getElementById('other').hidden=false">更多内容</button>
+<div id="other" hidden><label>通讯地址<input id="semanticAddress"></label></div>
+<button type="button" onclick="semanticSubmits++">确认提交</button><button type="button" onclick="semanticSubmits++">取消申请</button><button type="button" onclick="semanticSubmits++">上传资料</button>
+</form></section>
+<script>window.semanticSubmits=0</script>

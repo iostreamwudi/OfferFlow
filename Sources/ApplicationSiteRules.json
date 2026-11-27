@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "version": 1,
+  "sites": [
+    {
+      "id": "moka", "version": 1,
+      "hosts": ["app.mokahr.com"], "pathPrefixes": ["/campus-recruitment", "/social-recruitment"],
+      "fieldRows": ["[class*=\"apply-field-\"]"], "activeSections": [],
+      "fieldAliases": {"证件编号": "证件号码", "意向就业城市": "期望城市"},
+      "sectionAliases": {"申请信息": "intention", "教育背景": "education", "高中经历": "highSchool", "在校职务": "campus", "获奖经历": "award"},
+      "actionOrder": ["edit", "expand", "scroll", "save", "save-next", "next", "tab"]
+    },
+    {
+      "id": "zhaopin-campus", "version": 1,
+      "hosts": ["xiaoyuan.zhaopin.com"], "pathPrefixes": ["/scrd"],
+      "fieldRows": [".el-form-item", ".form-item"], "activeSections": ["[role=tab][aria-selected=true]"],
+      "fieldAliases": {"证件号码类型": "证件类型", "入学前户口所在地": "入学前户口所在地"},
+      "sectionAliases": {"实习/工作经历": "work", "专业技能": "computer", "奖励荣誉": "award"},
+      "actionOrder": ["edit", "expand", "scroll", "save", "save-next", "next", "tab"]
+    },
+    {
+      "id": "zhaopin-jsdg", "version": 1,
+      "hosts": ["jsdg.zhaopin.com"], "pathPrefixes": ["/zk"],
+      "fieldRows": [".table-item", ".el-form-item"], "activeSections": [],
+      "fieldAliases": {"居民身份证号码": "证件号码"},
+      "sectionAliases": {"个人基本信息": "basic", "工作（实习）经历": "work", "主要家庭成员及社会关系": "family"},
+      "actionOrder": ["edit", "expand", "scroll", "save", "save-next", "next", "tab"]
+    }
+  ]
+}

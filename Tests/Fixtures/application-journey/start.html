@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><style>body{padding:25px;font:16px sans-serif}label{display:block;margin:12px}button{margin:10px;padding:10px}[hidden]{display:none!important}</style>
+<h1>分步网申回归样本</h1>
+<form data-section="basic" onsubmit="event.preventDefault();sessionStorage.finalSubmits=+(sessionStorage.finalSubmits||0)+1">
+<h2>基本信息</h2>
+<label>邮政编码<input id="unknown" name="postalCode"></label>
+<label>姓名<input id="name" name="name"></label>
+<label>性别<select id="gender"><option value="">请选择</option><option value="M">男生</option><option value="F">女生</option></select></label>
+<div id="extra" hidden><label>电子邮箱<input id="email" name="email"></label></div>
+<button type="button" onclick="sessionStorage.saved=+(sessionStorage.saved||0)+1;document.querySelector('#extra').hidden=false">保存本段</button>
+<button type="button" onclick="goNext()">下一步</button>
+<button type="submit">提交报名</button>
+</form>
+<script>
+sessionStorage.clear();window.clicks=[];document.addEventListener('click',e=>clicks.push([e.target.tagName,e.target.id,e.clientX,e.clientY]),true);
+function goNext(){const v={name:document.querySelector('#name').value,email:document.querySelector('#email').value,gender:document.querySelector('#gender').value,unknown:document.querySelector('#unknown').value};if(v.name&&v.email){sessionStorage.first=JSON.stringify(v);location.href='second.html'}else document.querySelector('#extra').hidden=false;}
+</script>

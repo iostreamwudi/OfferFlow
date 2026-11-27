@@ -1,0 +1,3 @@
+<!doctype html><meta charset="utf-8"><style>body{font:16px sans-serif;padding:15px}label{display:block;margin:10px}#scroller{height:280px;overflow-y:auto;border:1px solid gray}.space{height:500px}</style>
+<h1>延迟加载的申请资料</h1><section data-section="basic" id="scroller"><h2>个人信息</h2><label>姓名<input id="lazyName"></label><label>手机号码<input id="lazyPhone"></label><div class="space"></div><div id="target"></div></section>
+<script>scroller.addEventListener('scroll',()=>{if(scroller.scrollTop>100&&!document.getElementById('lazyEmail'))target.innerHTML='<label>电子邮箱<input id="lazyEmail"></label>'});</script>

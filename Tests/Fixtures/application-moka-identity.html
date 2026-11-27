@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>本机 Moka 式复合证件字段测试</title>
+<style>body{font:14px system-ui;padding:24px}section{padding:18px;border:1px solid #ddd;margin:18px}input,select{padding:7px;margin:7px}label{display:block}.title{font-weight:bold}</style>
+<form id="application-form">
+<section class="applicant-card"><h2>基本信息</h2>
+<div class="form-item"><h3 class="field-title">最高学历</h3><select><option>本科</option></select></div>
+<div class="form-item"><label>证件号码</label><select id="document-kind"><option value="">请选择</option><option value="id">身份证</option><option value="passport">护照</option></select><input id="document-value" placeholder="请输入证件号码"></div>
+<div class="form-item"><label>本人知悉以下事项</label><input id="acknowledge" type="checkbox"></div>
+</section>
+<section class="family-card"><h2>家庭情况</h2><div class="form-item"><label>证件号码</label><select id="family-kind"><option value="">请选择</option><option value="id">身份证</option></select><input id="family-document" placeholder="请输入证件号码"></div></section>
+<button type="submit">提交申请</button></form><script>window.submissions=0;document.querySelector('form').onsubmit=e=>{e.preventDefault();submissions++};</script></html>

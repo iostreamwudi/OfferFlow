@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8">
+<style>body{font:16px sans-serif}.layout{display:flex}main{width:60%;padding:20px}nav{width:30%}label{display:block;margin:16px}button{margin:12px}[hidden]{display:none!important}</style>
+<div class="layout"><main id="content"></main><aside>
+<button role="tab" onclick="show('basic')" id="tab-basic">个人信息</button>
+<button role="tab" onclick="show('education')" id="tab-education">教育经历</button>
+<button role="tab" onclick="show('work')" id="tab-work">工作经历</button>
+<button onclick="submissions++">立即投递</button></aside></div>
+<script>
+const key='career-recovery-fixture-'+location.search;
+window.values=JSON.parse(localStorage.getItem(key)||'{}');window.edits=[];window.visits=[];window.saved=[];window.pending='';window.submissions=0;
+const titles={basic:'个人信息',education:'教育经历',work:'工作经历'};
+const fields={basic:[['姓名','name'],['联络电邮','email']],education:[['学校名称','school']],work:[['公司名称','company'],['未知信息','unknown']]};
+function show(section){window.current=section;visits.push(section);for(const id of Object.keys(titles))document.getElementById('tab-'+id).setAttribute('aria-selected',String(id===section));content.innerHTML='<section class="profile-section"><h3>'+titles[section]+'</h3><p>已保存资料</p><button type="button" onclick="edit()">编辑</button></section>';}
+function edit(){edits.push(current);content.innerHTML='<section class="profile-section"><h3>'+titles[current]+'</h3>'+fields[current].map(([label,id])=>'<label>'+label+'<input id="'+id+'" value="'+(values[current]?.[id]||'')+'"></label>').join('')+'<button type="button" onclick="save()">保存</button></section>';}
+function save(){const section=current;const data=Object.fromEntries([...content.querySelectorAll('input')].map(n=>[n.id,n.value]));pending=section;content.setAttribute('aria-busy','true');setTimeout(()=>{values[section]=data;localStorage.setItem(key,JSON.stringify(values));saved.push(section);pending='';content.removeAttribute('aria-busy');show(section);},section==='education'?2000:100);}
+show('basic');
+</script>

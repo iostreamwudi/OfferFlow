@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><style>body{padding:25px}label{display:block;margin:15px}[hidden]{display:none!important}</style>
+<span id="clock"></span><script>setInterval(()=>document.getElementById("clock").textContent=Date.now(),70)</script>
+<section data-section="basic"><h2>个人信息</h2>
+<label>姓名<input id="asyncName"></label>
+<button type="button" id="save" onclick="this.disabled=true;document.getElementById('busy').hidden=false;setTimeout(()=>{saved=true;this.remove();document.getElementById('busy').hidden=true;document.getElementById('later').hidden=false},1100)">保存</button>
+<div id="busy" aria-busy="true" hidden>正在保存</div>
+<button type="button" id="next" onclick="if(!saved){early++;return};this.remove()">下一步</button>
+<div id="later" hidden><label>电子邮箱<input id="asyncEmail"></label></div>
+<button type="button" onclick="submits++">最终提交</button>
+</section><script>var saved=false,early=0,submits=0;</script>

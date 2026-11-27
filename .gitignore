@@ -1,0 +1,4 @@
+build/
+dist/
+backups/
+.DS_Store

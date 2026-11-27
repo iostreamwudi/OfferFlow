@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8"><style>[hidden]{display:none!important}body{font:16px sans-serif}label{display:block}button,td{padding:5px}#calendar{position:fixed;top:10px;right:0;background:white;border:1px solid;width:380px}td{cursor:pointer}</style>
+<section data-section="basic"><h2>个人信息</h2>
+<div class="el-form-item"><label class="el-form-item__label">出生日期</label><div class="el-date-editor"><input id="birth" readonly aria-controls="calendar" onclick="openCalendar('birth')"></div></div>
+<div class="el-form-item"><label class="el-form-item__label">到岗时间</label><div data-date-picker><input id="partial" readonly aria-controls="calendar" onclick="openCalendar('partial')"></div></div>
+<div role="radiogroup" aria-label="性别"><div role="radio" aria-label="男" aria-checked="false" onclick="selectGender(this)">男</div><div role="radio" aria-label="女" aria-checked="false" onclick="selectGender(this)">女</div></div>
+<div role="group" aria-label="掌握技能"><div role="checkbox" aria-label="Python" aria-checked="false" onclick="toggle(this)">Python</div><div role="checkbox" aria-label="SQL" aria-checked="false" onclick="toggle(this)">SQL</div></div>
+<div role="group" aria-label="本人已知悉以上内容"><div role="checkbox" aria-checked="false" onclick="consents++">知悉</div></div>
+<label>期望城市<select multiple id="cities"><option value="SH">上海</option><option value="HZ">杭州</option><option value="BJ">北京</option></select></label>
+<div class="form-item"><label>毕业时间</label><select id="year" placeholder="年" onchange="replaceMonth()"><option value="">请选择年</option><option value="Y97">1997年</option></select><select id="month" placeholder="月"><option value="">请选择月</option></select><select id="day" placeholder="日" disabled><option value="">请选择日</option></select></div>
+<div class="form-item"><label>籍贯</label><select id="province" placeholder="省份" onchange="populateCity()"><option value="">请选择省</option><option value="HB">湖北省</option></select><select id="city" placeholder="城市" disabled><option value="">请选择市</option></select><select id="district" placeholder="区县" disabled><option value="">请选择区县</option></select></div>
+<div class="form-item"><label>简历上传</label><input type="file" id="resume" hidden><button type="button" onclick="resume.click()">选择文件</button></div>
+<div class="form-item"><label>身份证附件</label><input type="file" id="idFile"></div><div class="form-item"><label>照片</label><input type="file" id="photo"></div>
+<div id="calendar" role="dialog" hidden></div>
+</section>
+<script>
+let active='',yearValue=2026,monthValue=11,decade=2020,view='day';window.birthReceived='';window.genderReceived='';window.consents=0;
+function selectGender(n){for(const other of n.parentElement.children)other.setAttribute('aria-checked',String(other===n));genderReceived=n.getAttribute('aria-label')}
+function toggle(n){n.setAttribute('aria-checked',String(n.getAttribute('aria-checked')!=='true'))}
+function openCalendar(id){active=id;calendar.hidden=false;view='day';renderCalendar()}
+function renderCalendar(){
+ let head=`<div data-calendar-header><button type="button" aria-label="选择年份" onclick="view='year';renderCalendar()">${yearValue}年</button><button type="button" aria-label="选择月份" onclick="view='month';renderCalendar()">${monthValue}月</button></div>`;
+ if(view==='year'){head+=`<button type="button" aria-label="前十年" onclick="decade-=10;renderCalendar()">‹</button><button type="button" aria-label="后十年" onclick="decade+=10;renderCalendar()">›</button><table data-calendar-view="year" role="grid"><tr>`;for(let y=decade;y<decade+10;y++)head+=`<td role="gridcell" onclick="yearValue=${y};view='month';renderCalendar()">${y}</td>`;head+='</tr></table>'}
+ else if(view==='month'){head+='<table data-calendar-view="month" role="grid"><tr>';for(let m=1;m<=12;m++)head+=`<td role="gridcell" onclick="monthValue=${m};view='day';renderCalendar()">${m}月</td>`;head+='</tr></table>'}
+ else{head+='<table role="grid"><tr>';for(let d=1;d<=new Date(yearValue,monthValue,0).getDate();d++){const date=`${yearValue}-${String(monthValue).padStart(2,'0')}-${String(d).padStart(2,'0')}`;head+=`<td role="gridcell" title="${date}" onclick="chooseDate('${date}')">${d}</td>`}head+='</tr></table>'}calendar.innerHTML=head;
+}
+function chooseDate(date){document.getElementById(active).value=date;birthReceived=date;calendar.hidden=true;}
+function replaceMonth(){document.getElementById('month').outerHTML='<select id="month" placeholder="月" onchange="populateDay()"><option value="">请选择月</option><option value="M2">02月</option></select>'}
+function populateDay(){document.getElementById('day').disabled=false;document.getElementById('day').innerHTML='<option value="">请选择日</option><option value="D17">17日</option>'}
+function populateCity(){document.getElementById('city').disabled=false;document.getElementById('city').innerHTML='<option value="">请选择市</option><option value="XY">襄阳市</option>';document.getElementById('city').onchange=()=>{document.getElementById('district').disabled=false;document.getElementById('district').innerHTML='<option value="">请选择区县</option><option value="XC">襄城区</option>'}}
+</script>

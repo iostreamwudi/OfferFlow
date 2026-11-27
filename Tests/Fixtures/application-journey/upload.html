@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><h1>简历附件测试</h1><section data-section="basic"><h2>个人信息</h2><label>姓名<input id="uploadName"></label>
+<div class="form-item"><label>简历上传</label><input type="file" hidden id="resumeFile"><button type="button" onclick="resumeFile.click()">选择文件</button><div id="receipt"></div></div>
+<div class="form-item"><label>身份证附件</label><input type="file" id="identityFile" onchange="extraUploads++"></div><div class="form-item"><label>照片</label><input type="file" id="photoFile" onchange="extraUploads++"></div>
+<button onclick="submissions++">提交报名</button></section><script>
+window.extraUploads=0;window.submissions=0;window.uploadCount=0;window.receivedContent='';
+resumeFile.addEventListener('change',async()=>{const file=resumeFile.files[0];if(!file)return;uploadCount++;receipt.dataset.uploadState='uploading';receivedContent=await file.text();receipt.dataset.uploadState='success';receipt.textContent=file.name});
+</script>

@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><style>body{font:15px sans-serif;padding:20px}.apply-field-test{margin:12px}.sd-Select-container-test{border:1px solid #ccc;position:relative;width:240px}.sd-Dropdown-dropdown-test{background:#fff;border:1px solid #aaa}.sd-Menu-content-item-test{padding:4px;cursor:pointer}[hidden]{display:none!important}</style>
+<div class="apply-block-test"><h3>个人信息</h3><div class="apply-fields-test">
+<div class="apply-field-test"><span class="label-test">姓名</span><input id="name" value="网页已有姓名"></div>
+<div class="apply-field-test"><span class="label-test">最高学历</span><div id="degree" data-options="本科,硕士,博士" data-selected="本科"></div></div>
+<div class="apply-field-test"><span class="label-test">证件号码</span><div id="idtype" data-options="身份证,护照" data-selected="护照"></div><input id="idnumber" placeholder="证件号码" value="OLD-ID"></div>
+<div class="apply-field-test"><span class="label-test">毕业时间</span><div id="gradY" data-options="2025年,2026年,2027年" data-placeholder="年"></div><div id="gradM" data-options="01月,06月,09月" data-placeholder="月"></div></div>
+<div class="apply-field-test"><span class="label-test">未知资料</span><input id="unknown" value="网站原有备注"></div>
+</div></div>
+<div class="apply-block-test"><h3>教育背景</h3>
+<div class="apply-fields-test multi-test"><div class="apply-field-test"><span class="label-test">学校名称</span><input id="school0" value="网页旧学校"></div><div class="apply-field-test"><span class="label-test">就读时间</span><div id="startY" data-options="2023年,2024年" data-placeholder="年"></div><div id="startM" data-options="06月,09月" data-placeholder="月"></div><div id="endY" data-options="2026年,2027年" data-placeholder="年"></div><div id="endM" data-options="06月,09月" data-placeholder="月"></div></div></div>
+<div class="apply-fields-test multi-test"><div class="apply-field-test"><span class="label-test">学校名称</span><input id="school1" value="另一所旧学校"></div></div></div>
+<div class="apply-block-test"><h3>高中经历</h3><div class="apply-fields-test multi-test"><div class="apply-field-test"><span class="label-test">学校名称</span><input id="highschool" value="已有高中"></div></div></div>
+<div class="apply-block-test"><h3>实习经历</h3><div class="apply-fields-test multi-test"><div class="apply-field-test"><span class="label-test">公司名称</span><input id="company" value="网页原公司"></div><div class="apply-field-test"><span class="label-test">工作职责</span><textarea id="work">原职责</textarea></div></div></div>
+<script>
+window.committed={};
+for(const box of document.querySelectorAll('[data-options]')){
+ box.className='sd-Dropdown-container-test';box.innerHTML='<div class="sd-Select-container-test"><span class="sd-Input-display-value-test">'+(box.dataset.selected||'')+'</span><input placeholder="'+(box.dataset.placeholder||'请选择')+'"></div><div class="sd-Dropdown-dropdown-test" hidden><div class="sd-Select-menu-test">'+box.dataset.options.split(',').map(v=>'<div class="sd-Menu-container-test"><span class="sd-Menu-content-item-test">'+v+'</span></div>').join('')+'</div></div>';
+ box.querySelector('input').onclick=()=>{for(const menu of document.querySelectorAll('.sd-Dropdown-dropdown-test'))menu.hidden=true;box.querySelector('.sd-Dropdown-dropdown-test').hidden=false};
+ for(const item of box.querySelectorAll('.sd-Menu-content-item-test'))item.onclick=()=>{committed[box.id]=item.textContent;box.querySelector('.sd-Input-display-value-test').textContent=item.textContent;box.querySelector('input').value='';box.querySelector('.sd-Dropdown-dropdown-test').hidden=true};
+}
+</script>

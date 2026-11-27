@@ -1,0 +1,4 @@
+<!doctype html><meta charset="utf-8"><style>[hidden]{display:none!important}.section{width:600px}.sidebar{width:200px;position:absolute;left:620px;top:0}.sidebar h5{cursor:pointer}[role=dialog]{position:fixed;inset:100px;background:white;border:1px solid;padding:20px}</style>
+<div class="section"><h3>个人信息</h3><label>电子邮箱<input id=email></label></div><div class="sidebar"><h5 onclick="jump()">教育经历 <span>未完成</span></h5><h5 onclick="jump()">专业技能</h5><button onclick="submissions++">立即投递</button></div>
+<div role="dialog" hidden id=dialog><h3>跳转提示</h3><p>当前模块还未保存，是否要保存当前模块信息？</p><button onclick="discard++">不保存</button><button onclick="saveJump()">保存并跳转</button></div>
+<script>window.dialogFixture=true;window.submissions=0;window.discard=0;window.saved='';window.finished=false;function jump(){if(!finished)dialog.hidden=false}function saveJump(){saved=email.value;finished=true;dialog.hidden=true;document.querySelector('.section').innerHTML='<h3>教育经历</h3><p>已检查</p>'}</script>
